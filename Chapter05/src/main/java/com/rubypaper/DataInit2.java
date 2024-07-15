@@ -15,39 +15,38 @@ import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
-//@Component
-public class DataInit implements ApplicationRunner{
+@Component
+public class DataInit2 implements ApplicationRunner{
 
 	private final BoardRepository boardRepo;
 	private final MemberRepository memberRepo;
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		for (int i = 1; i <= 100 ; i++) {
-			boardRepo.save(Board.builder()
-					.title("title"+i)
-//					.writer("writer"+i)
-					.content("content"+i)
-					.createDate(new Date())
-					.cnt((long)(Math.random()*100))
-					.build());
-		}
+		Member m1 = Member.builder().id("member1").password("member111").name("둘리").role("User")
+				.build();
+		memberRepo.save(m1);
+		
+		Member m2 = Member.builder().id("member2").password("member222").name("도우너").role("Admin")
+				.build();
+		memberRepo.save(m2);
 		
 		for (int i = 1; i <= 100 ; i++) {
 			boardRepo.save(Board.builder()
 					.title("title"+i)
-//					.writer("writer2"+i)
 					.content("content"+i)
 					.createDate(new Date())
 					.cnt((long)(Math.random()*100))
+					.member(m1)
 					.build());
 		}
 		for (int i = 1; i <= 100 ; i++) {
-			memberRepo.save(Member.builder()
-					.id("ID"+i)
-					.password("password"+(Math.random()*100))
-					.name("name"+i+"ㅇㅇ")
-					.role("role"+i)
+			boardRepo.save(Board.builder()
+					.title("title"+i)
+					.content("content"+i)
+					.createDate(new Date())
+					.cnt((long)(Math.random()*100))
+					.member(m2)
 					.build());
 		}
 	}

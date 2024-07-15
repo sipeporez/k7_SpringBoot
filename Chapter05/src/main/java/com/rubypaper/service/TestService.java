@@ -29,7 +29,7 @@ public class TestService {
 	public Board postBoard(Board bd) {
 		return repo.save(Board.builder()
 				.title(bd.getTitle())
-				.writer(bd.getWriter())
+//				.writer(bd.getWriter())
 				.content(bd.getContent())
 				.createDate(new Date())
 				.cnt(0L)

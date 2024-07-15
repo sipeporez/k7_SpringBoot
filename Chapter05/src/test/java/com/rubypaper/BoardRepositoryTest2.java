@@ -16,7 +16,7 @@ import lombok.Builder;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class BoardRepositoryTest {
+public class BoardRepositoryTest2 {
 	
 	@Autowired
 	private BoardRepository boardRepo;
