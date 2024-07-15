@@ -20,7 +20,7 @@ public class DataInit implements ApplicationRunner{
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		for (int i = 1; i <= 5 ; i++) {
+		for (int i = 1; i <= 100 ; i++) {
 			boardRepo.save(Board.builder()
 					.title("title1"+i)
 					.writer("writer1"+i)
@@ -30,7 +30,7 @@ public class DataInit implements ApplicationRunner{
 					.build());
 		}
 		
-		for (int i = 1; i <= 5 ; i++) {
+		for (int i = 1; i <= 100 ; i++) {
 			boardRepo.save(Board.builder()
 					.title("title2"+i)
 					.writer("writer2"+i)
