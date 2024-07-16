@@ -38,8 +38,13 @@ public class Board {
 	private Long cnt = 0L;
 	
 	@ManyToOne
-	@JoinColumn(name="MEMBER_ID")
+	@JoinColumn(name="MEMBER_ID", nullable = false)
 	private Member member;
+	
+	public void setMember(Member member) {
+		this.member = member;
+		member.getBoardList().add(this);
+	}
 	
 	public String toString() {
 		return " 번호 : " + seq +
