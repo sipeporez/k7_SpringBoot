@@ -15,14 +15,17 @@ public class BoardServicelmpl implements BoardService {
 	private BoardRepository boardRepo;
 	
 	public List<Board> getBoardList(Board board) {
-		return (List<Board>) boardRepo.findAllDESC();
+		return (List<Board>) boardRepo.findAll();
 	}
 	
 	public void insertBoard(Board board) {
 		boardRepo.save(board);
 	}
 	public Board getBoard(Board board) {
-		return boardRepo.findById(board.getSeq()).get();
+		Board temp = boardRepo.findById(board.getSeq()).get();
+		temp.setCnt(temp.getCnt()+1);
+		boardRepo.save(temp);
+		return temp;
 	}
 	public void updateBoard(Board board) {
 		Board findBoard = boardRepo.findById(board.getSeq()).get();

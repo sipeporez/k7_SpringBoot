@@ -5,6 +5,7 @@ import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board {
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long seq;
 	private String title;
 	@Column(updatable = false)
@@ -29,6 +30,6 @@ public class Board {
 	private String content;
 	@Column(insertable = false, updatable = false, columnDefinition = "date default CURRENT_DATE()")
 	private Date createDate;
-	@Column(insertable = false, updatable = false, columnDefinition = "number default 0")
+	@Column(insertable = false, columnDefinition = "number default 0")
 	private Long cnt;
 }

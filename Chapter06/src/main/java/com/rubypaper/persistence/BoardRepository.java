@@ -8,7 +8,4 @@ import org.springframework.data.repository.CrudRepository;
 import com.rubypaper.domain.Board;
 
 public interface BoardRepository extends CrudRepository<Board, Long> {
-	@Query("SELECT b FROM Board b ORDER BY b.seq DESC")
-	List<Board> findAllDESC();
-
 }
