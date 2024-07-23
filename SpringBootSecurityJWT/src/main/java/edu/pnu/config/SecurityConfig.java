@@ -10,14 +10,19 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
+import edu.pnu.config.filter.JMTAuthorizationFilter;
 import edu.pnu.config.filter.JWTAuthenticationFilter;
+import edu.pnu.persistence.MemberRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	@Autowired
 	private AuthenticationConfiguration authenConfig;
+	@Autowired
+	private MemberRepository memRepo;
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -44,11 +49,12 @@ public class SecurityConfig {
 		http.csrf(cf->cf.disable());	
 		http.headers(h->h.frameOptions(f->f.disable()));
 		
+		// 스프링 시큐리티가 등록한 필터들 중에서 AuthorizationFilter 앞에 앞에서 작성한 필터를 삽입 (memberRepo를 직접 주입)
+		http.addFilterBefore(new JMTAuthorizationFilter(memRepo), AuthorizationFilter.class);
+		
 		// 개발자가 작성한 authentication 필터 추가
 		http.addFilter(new JWTAuthenticationFilter(authenConfig.getAuthenticationManager()));
 		
 		return http.build();
-		
 	}
-
 }
